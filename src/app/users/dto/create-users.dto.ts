@@ -5,7 +5,7 @@ import { IsString } from 'class-validator';
 import { IsPhoneNumber } from 'class-validator';
 import { Length } from 'class-validator';
 
-export class CreateMindCareDto {
+export class CreateUsersDto {
   @IsNotEmpty()
   @ApiProperty()
   @IsString()
