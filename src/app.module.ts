@@ -17,7 +17,7 @@ import { MindcareModule } from './app/mindcare/mindcare.module';
         password: configService.get('DB_PASSWORD', 'Lila369*'),
         database: configService.get('DB_DATABASE', 'mindcare'),
         entities: [__dirname + '/**/*.entity.{js,ts}'],
-        synchronize: true, // Não recomendado em produção
+        synchronize: false, 
       }),
     }),
     MindcareModule,
