@@ -1,0 +1,13 @@
+### nest new nest-api
+
+### PS npm run start:dev
+
+### docker ps
+
+### nest g module app/mindcare
+
+### nest g controller app/mindcare
+
+### nest g service app/mindcare
+
+### npm i --save class-validator class-transformer

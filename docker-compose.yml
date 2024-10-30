@@ -1,0 +1,23 @@
+
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-container
+    environment:
+      MARIADB_ROOT_PASSWORD: Lila369*
+      MARIADB_DATABASE: mindcare
+      MARIADB_USER: root
+      MARIADB_PASSWORD: Lila369*
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+volumes:
+  mariadb-data:
+
+networks:
+  mynetwork:
