@@ -13,7 +13,7 @@ import { AppController } from './app.controller';
       useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
         const dbConfig: TypeOrmModuleOptions = {
           type: 'postgres',
-          url: postgresql://mindcare_l8ig_user:Sa2ynqJU7OnTnydPf0n2z5TqL0QSeqBC@dpg-csi0d0dds78s73e9fbp0-a/mindcare_l8ig,
+          url: //mindcare_l8ig_user:Sa2ynqJU7OnTnydPf0n2z5TqL0QSeqBC@dpg-csi0d0dds78s73e9fbp0-a/mindcare_l8ig,
           ssl: {
             rejectUnauthorized: false,
           },
