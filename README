@@ -11,3 +11,7 @@
 ### nest g service app/mindcare
 
 ### npm i --save class-validator class-transformer
+
+### npm run typeorm migration:generate -- -d ./src/config/data-source.ts ./src/migrations/CreateUsersTable
+
+### npm run typeorm migration:run -- -d ./src/config/data-source.ts

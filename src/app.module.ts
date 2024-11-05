@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './app/users/users.module';
-import { AppController } from './app.controller';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
@@ -10,23 +9,23 @@ import { AppController } from './app.controller';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
-        const dbConfig: TypeOrmModuleOptions = {
+      useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
+        return {
           type: 'postgres',
-          url: process.env.DATABASE_URL,
-          ssl: {
-            rejectUnauthorized: false,
-          },
-          entities: [__dirname + '/**/*.entity.{js,ts}'],
-          synchronize: true,
+          host: configService.get<string>('DB_HOST'),
+          port: configService.get<number>('DB_PORT'),
+          username: configService.get<string>('DB_USERNAME'),
+          password: configService.get<string>('DB_PASSWORD'),
+          database: configService.get<string>('DB_DATABASE'),
+          entities: [__dirname + '/../**/*.entity.{js,ts}'],
+          migrations: [__dirname + '/../migrations/*.{js,ts}'], // Aqui são carregadas as migrações
+          synchronize: false, 
           logging: true,
         };
-
-        return dbConfig;
       },
+      
     }),
-    UsersModule,
+    ApiModule,
   ],
-  controllers:[AppController]
 })
 export class AppModule {}

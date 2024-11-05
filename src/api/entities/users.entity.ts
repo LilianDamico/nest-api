@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('users') 
+@Entity('users')
 export class UsersEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid') 
   id: string;
 
-  @Column({ nullable: true }) 
+  @Column({ nullable: true })
   nome: string;
 
   @Column({ nullable: true })

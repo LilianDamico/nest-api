@@ -8,11 +8,10 @@ import * as cors from 'cors';
 async function bootstrap() {
   dotenv.config();
   console.log(process.env.DB_HOST, process.env.DB_USERNAME, process.env.DB_PASSWORD);
-  
+
   const app = await NestFactory.create(AppModule);
-  
-  app.use(cors()); 
-  
+  app.use(cors());
+
   const config = new DocumentBuilder()
     .setTitle('MindCareApp API')
     .setDescription('API para gerenciamento do MindCare')
@@ -21,7 +20,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
+
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(process.env.PORT || 3000);
