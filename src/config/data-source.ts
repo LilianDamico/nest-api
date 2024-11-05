@@ -1,6 +1,6 @@
 const { DataSource } = require('typeorm');
 const { config } = require('dotenv');
-config(); // Carregar variáveis de ambiente do .env
+config(); 
 
 const AppDataSource = new DataSource({
   type: 'postgres',
