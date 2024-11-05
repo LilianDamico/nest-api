@@ -1,51 +1,48 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail } from 'class-validator';
-import { IsNotEmpty } from 'class-validator';
-import { IsString } from 'class-validator';
-import { IsPhoneNumber } from 'class-validator';
-import { Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsPhoneNumber, Length, IsOptional } from 'class-validator';
 
 export class CreateUsersDto {
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Name must be a non-empty string.' })
   @ApiProperty()
   @IsString()
-  name: string; 
+  name: string;
 
-  @IsEmail()
+  @IsEmail({}, { message: 'Please provide a valid email address.' })
   @ApiProperty()
-  email: string; 
+  email: string;
 
-  @IsNotEmpty()
-  @ApiProperty()
-  @IsString()
-  registro: string; 
-
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Registro must be a non-empty string.' })
   @ApiProperty()
   @IsString()
-  address: string; 
+  registro: string;
 
-  @IsPhoneNumber('BR') 
+  @IsNotEmpty({ message: 'Address must be a non-empty string.' })
   @ApiProperty()
-  telefone: string; 
+  @IsString()
+  address: string;
 
-  @IsNotEmpty()
+  @IsPhoneNumber('BR', { message: 'Please provide a valid phone number.' })
+  @ApiProperty()
+  @IsOptional()  // Se o telefone for opcional
+  telefone: string;
+
+  @IsNotEmpty({ message: 'Profissao must be a non-empty string.' })
   @ApiProperty()
   @IsString()
   profissao: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Especialidade must be a non-empty string.' })
   @ApiProperty()
   @IsString()
-  especialidade: string; 
+  especialidade: string;
 
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Password must be a non-empty string.' })
   @ApiProperty()
   @IsString()
-  @Length(8, 20) 
-  password: string; 
+  @Length(8, 20, { message: 'Password must be between 8 and 20 characters.' })
+  password: string;
 
-  @IsString()
+  @IsString({ message: 'Comentarios must be a string.' })
   @ApiProperty()
-  comentarios: string; 
+  comentarios: string;
 }
