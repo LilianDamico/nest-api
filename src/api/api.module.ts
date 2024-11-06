@@ -5,15 +5,12 @@ import { UsersController } from './controllers/users.controller';
 import { UsersService } from './services/users.service';
 import { UsersEntity } from './entities/users.entity';
 
-
-import { AuthModule } from '../auth/auth.module';
-
 @Module({
   imports: [
     TypeOrmModule.forFeature([UsersEntity]), 
-    AuthModule, 
   ],
   controllers: [UsersController],
+  exports: [UsersService],  
   providers: [UsersService],
 })
 export class ApiModule {}
