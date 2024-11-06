@@ -25,20 +25,25 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
                 useFactory: async (configService) => {
-                    const dbUrl = configService.get('DB_URL');
-                    if (!dbUrl) {
-                        throw new Error('Missing database URL in environment variables');
+                    const host = configService.get('DB_HOST');
+                    const port = parseInt(configService.get('DB_PORT'), 10);
+                    const username = configService.get('DB_USERNAME');
+                    const password = configService.get('DB_PASSWORD');
+                    const database = configService.get('DB_DATABASE');
+                    if (!host || !port || !username || !password || !database) {
+                        throw new Error('Missing database configuration in environment variables');
                     }
                     return {
                         type: 'postgres',
-                        url: dbUrl,
+                        host,
+                        port,
+                        username,
+                        password,
+                        database,
                         entities: [__dirname + '/../**/*.entity.{js,ts}'],
                         migrations: [__dirname + '/../migrations/*.{js,ts}'],
-                        synchronize: true,
+                        synchronize: false,
                         logging: true,
-                        ssl: {
-                            rejectUnauthorized: false,
-                        },
                     };
                 },
             }),

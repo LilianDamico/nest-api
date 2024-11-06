@@ -9,33 +9,36 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
-        
-        const dbUrl = configService.get<string>('DB_URL');
+        const host = configService.get<string>('DB_HOST');
+        const port = parseInt(configService.get<string>('DB_PORT'), 10);
+        const username = configService.get<string>('DB_USERNAME');
+        const password = configService.get<string>('DB_PASSWORD');
+        const database = configService.get<string>('DB_DATABASE');
 
-        if (!dbUrl) {
-          throw new Error('Missing database URL in environment variables');
+        if (!host || !port || !username || !password || !database) {
+          throw new Error('Missing database configuration in environment variables');
         }
 
         return {
           type: 'postgres',
-          url: dbUrl, // Usando a URL diretamente
-          entities: [__dirname + '/../**/*.entity.{js,ts}'], 
-          migrations: [__dirname + '/../migrations/*.{js,ts}'], 
-          synchronize: true, 
-          logging: true, 
-          ssl: {
-            rejectUnauthorized: false, 
-          },
+          host,
+          port,
+          username,
+          password,
+          database,
+          entities: [__dirname + '/../**/*.entity.{js,ts}'],
+          migrations: [__dirname + '/../migrations/*.{js,ts}'],
+          synchronize: false,
+          logging: true,
         };
       },
     }),
     ApiModule,
-    AuthModule,
+    AuthModule,  
   ],
   controllers: [],
   providers: [],
