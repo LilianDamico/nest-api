@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ApiModule } from './api/api.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -17,8 +18,7 @@ import { ApiModule } from './api/api.module';
         const username = configService.get<string>('DB_USERNAME');
         const password = configService.get<string>('DB_PASSWORD');
         const database = configService.get<string>('DB_DATABASE');
-        
-        
+
         if (!host || !port || !username || !password || !database) {
           throw new Error('Missing database configuration in environment variables');
         }
@@ -32,12 +32,13 @@ import { ApiModule } from './api/api.module';
           database,
           entities: [__dirname + '/../**/*.entity.{js,ts}'],
           migrations: [__dirname + '/../migrations/*.{js,ts}'],
-          synchronize: false,  
+          synchronize: false,
           logging: true,
         };
       },
     }),
     ApiModule,
+    AuthModule,  
   ],
   controllers: [],
   providers: [],
