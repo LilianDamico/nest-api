@@ -32,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
           database,
           entities: [__dirname + '/../**/*.entity.{js,ts}'],
           migrations: [__dirname + '/../migrations/*.{js,ts}'],
-          synchronize: false,
+          synchronize: true,
           logging: true,
         };
       },
